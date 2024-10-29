@@ -27,7 +27,7 @@ public class Database {
         return databaseInstance;
     }
 
-    //Write operations
+    //create operations
     public void writeMessage(Message message){
         messages.add(message);
     }
@@ -37,5 +37,8 @@ public class Database {
     }
 
     //Read operations
+    public CopyOnWriteArrayList<User>  getUser(){
+        return users;
+    }
 
 }
