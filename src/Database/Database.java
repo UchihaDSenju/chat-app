@@ -37,8 +37,12 @@ public class Database {
     }
 
     //Read operations
-    public CopyOnWriteArrayList<User>  getUser(){
+    public CopyOnWriteArrayList<User> getUser(){
         return users;
+    }
+
+    public CopyOnWriteArrayList<Message> getMessages(){
+        return messages;
     }
 
 }
