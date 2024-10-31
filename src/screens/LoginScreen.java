@@ -21,9 +21,9 @@ public class LoginScreen extends Screen {
             String uName = scanner.nextLine();
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
-
-            if(controller.checkCredentials(uName, password)){
-                nextScreen(new ChatsScreen(scanner));
+            User user = controller.checkCredentials(uName, password);
+            if(user!=null){
+                nextScreen(new ChatsScreen(scanner, user));
                 return;
             }
         }
@@ -35,10 +35,12 @@ public class LoginScreen extends Screen {
         controller.addUser(new User("Luffy", "123"));
         controller.addUser(new User("Eren", "123"));
 
-        for(int i = 0; i<10; i++){
+//        for(int i = 0; i<10; i++){
             controller.sendMessage(new Message("Hello", "Tariq", "Luffy"));
+            controller.sendMessage(new Message("Wassup", "Tariq", "Luffy"));
+            controller.sendMessage(new Message("Hey", "Eren", "Luffy"));
             controller.sendMessage(new Message("Hello", "Luffy", "Tariq"));
             controller.sendMessage(new Message("Hello", "Tariq", "Eren"));
-        }
+//        }
     }
 }

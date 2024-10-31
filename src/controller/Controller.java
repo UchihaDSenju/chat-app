@@ -4,6 +4,9 @@ import Database.Database;
 import model.Message;
 import model.User;
 
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class Controller {
 
     private static final Object LOCK = new Object();
@@ -32,10 +35,22 @@ public class Controller {
         database.writeMessage(message);
     }
 
-    public boolean checkCredentials(String uName, String password){
+    public User checkCredentials(String uName, String password){
         var result = database.getUser().stream().filter((u)-> u.getUserName().equals(uName) && u.getPassword().equals(password)).findFirst().orElse(null);
         System.out.println("Result: "+result);//for logging
-        return result != null;
+        return result;
+    }
+
+    public ArrayList<Message> fetchMessages(User user){
+        ArrayList<Message> messages = new ArrayList<>();
+        String userName = user.getUserName();
+        CopyOnWriteArrayList<Message> messagesFromDatabase = database.getMessages();
+        for(Message message : messagesFromDatabase){
+            if(message.getReceiver().equals(userName) || message.getSender().equals(userName)){
+                messages.add(message);
+            }
+        }
+        return messages;
     }
 
 }
